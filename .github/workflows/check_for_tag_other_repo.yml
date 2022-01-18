@@ -1,0 +1,20 @@
+name: Example - Tag in Another Repo
+on: 
+  workflow_dispatch:
+        
+jobs:
+  check_for_tag:
+    runs-on: ubuntu-latest
+    name: Check for a tag
+    steps:
+      - name: Action step
+        id: action_step
+        uses: RepublicServicesRepository/gha-check-for-github-tag@v1.0.0
+        with:
+          owner: actions
+          repository: toolkit
+          tag: '@actions/core@1.0.0'
+          github_token: ${{ secrets.OTHER_REPO_GITHUB_PAT }}
+      - name: Action output
+        run: |
+          echo "tag_exists: ${{ steps.action_step.outputs.tag_exists }}"

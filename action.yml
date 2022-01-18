@@ -1,0 +1,27 @@
+name: 'Check for GitHub tag'
+description: 'Checks to see if a GitHub tag exists or not.'
+inputs:
+  owner: 
+    description: 'Owner of the repository if it is not the current one'
+    required: false
+  repository:
+    description: 'Repository to find the tag for if it is not the current one'
+    required: false
+  tag:
+    description: 'The tag to look to lookup'
+    required: true
+  fail_if_exists:
+    description: 'Fail this action if the tag exists.  May not be true if fail_if_not_exists is true.'
+    default: false
+  fail_if_not_exists:
+    description: 'Fail this action if the tag does not exist. May not be true if fail_if_exists is true.'
+    default: false
+  github_token:
+    description: 'A git token that has sufficient permissions to read the tags on your repository.'
+    default: ${{ github.token }}
+outputs:
+  tag_exists:
+    description: 'true/false if the tag exists.'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
