@@ -1,4 +1,4 @@
-![Unit Tests](https://github.com/RepublicServicesRepository/gha-check-for-github-tag/actions/workflows/ci.yml/badge.svg?branch=initial_commit)
+![Unit Tests](https://github.com/RepublicServicesRepository/gha-check-for-github-tag/actions/workflows/ci.yml/badge.svg)
 
 
 # GitHub Action - Check for GitHub Tag
