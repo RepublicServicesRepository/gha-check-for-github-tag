@@ -8288,7 +8288,7 @@ const core = __nccwpck_require__(6024)
 const github = __nccwpck_require__(5016)
 const { context } = __nccwpck_require__(5016)
 
-async function validateRequest (request) {
+function validateRequest (request) {
     let isValid = true
     if (request.failIfExists && request.failIfNotExists) {
         console.error('Both fail_if_exists and fail_if_not_exist cannot be set to true')
@@ -8331,13 +8331,14 @@ async function tagExists (request) {
     return tagExists
 }
 
-async function getRequest () {
+function getRequest () {
+
     const { owner: currentOwner, repo: currentRepository } = context.repo
     return {
         owner: core.getInput('owner', { required: false }) || currentOwner,
         repository: core.getInput('repository', { required: false }) || currentRepository,
         tag: core.getInput('tag', { required: true }),
-        githubToken: core.getInput('github_token', { required: true }) || process.env.GITHUB_TOKEN,
+        githubToken: core.getInput('github_token', { required: true }),
         failIfExists: core.getBooleanInput('fail_if_exists', { required: false }),
         failIfNotExists: core.getBooleanInput('fail_if_not_exists', { required: false })
     }
@@ -8346,7 +8347,7 @@ async function getRequest () {
 async function run () {
     const request = await getRequest()
 
-    if (!await validateRequest(request)) {
+    if (!validateRequest(request)) {
         core.error('Invalid request')
         throw new Error('Invalid request')
     }

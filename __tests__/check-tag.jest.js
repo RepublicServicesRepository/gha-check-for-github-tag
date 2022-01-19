@@ -32,7 +32,7 @@ describe('Validate Request', () => {
 
     test('uses context owner and repo if not provided on input', async () => {
         core.getBooleanInput = jest.fn().mockReturnValue(false)
-        const request = await getRequest()
+        const request = getRequest()
 
         expect(request.owner).toBe('ContextOwner')
         expect(request.repository).toBe('ContextRepository')
@@ -42,7 +42,7 @@ describe('Validate Request', () => {
         when(core.getInput).calledWith('owner', { required: false }).mockReturnValue('InputOwner')
         when(core.getInput).calledWith('repository', { required: false }).mockReturnValue('InputRepository')
         core.getBooleanInput = jest.fn().mockReturnValue(false)
-        const request = await getRequest()
+        const request = getRequest()
 
         expect(request.owner).toBe('InputOwner')
         expect(request.repository).toBe('InputRepository')

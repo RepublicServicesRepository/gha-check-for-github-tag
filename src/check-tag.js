@@ -2,7 +2,7 @@ const core = require('@actions/core')
 const github = require('@actions/github')
 const { context } = require('@actions/github')
 
-async function validateRequest (request) {
+function validateRequest (request) {
     let isValid = true
     if (request.failIfExists && request.failIfNotExists) {
         console.error('Both fail_if_exists and fail_if_not_exist cannot be set to true')
@@ -45,7 +45,7 @@ async function tagExists (request) {
     return tagExists
 }
 
-async function getRequest () {
+function getRequest () {
     const { owner: currentOwner, repo: currentRepository } = context.repo
     return {
         owner: core.getInput('owner', { required: false }) || currentOwner,
@@ -60,7 +60,7 @@ async function getRequest () {
 async function run () {
     const request = await getRequest()
 
-    if (!await validateRequest(request)) {
+    if (!validateRequest(request)) {
         core.error('Invalid request')
         throw new Error('Invalid request')
     }
