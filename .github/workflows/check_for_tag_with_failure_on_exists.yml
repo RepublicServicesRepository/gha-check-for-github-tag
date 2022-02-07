@@ -1,0 +1,24 @@
+name: Example - Failure on Exists
+on: 
+  workflow_dispatch:
+    inputs:
+      tag: 
+        required: true
+        default: v1.0.0
+        
+jobs:
+  check_for_tag:
+    runs-on: ubuntu-latest
+    name: Check for a tag
+    steps:
+      - name: Action step
+        id: action_step
+        uses: RepublicServicesRepository/gha-check-for-github-tag@v1.0.0
+        with:
+          tag: ${{ github.event.inputs.tag }}
+          fail_if_exists: true
+      - name: Action output
+        if: always()
+        run: |
+          echo "tag_exists: ${{ steps.action_step.outputs.tag_exists }}"
+
